@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>受講生実績スライド</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: #0a0a0a;
+    color: #fff;
+  }
+
+  /* ===== SLIDE COMMON ===== */
+  .slide {
+    width: 1920px;
+    min-height: 1080px;
+    margin: 0 auto 60px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0D1117 0%, #1a1a2e 50%, #0D1117 100%);
+    border: 1px solid #333;
+  }
+
+  .slide::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #b8860b, #ffd700, #b8860b);
+    z-index: 10;
+  }
+
+  /* ===== SLIDE HEADERS ===== */
+  .slide-header {
+    text-align: center;
+    padding: 50px 60px 30px;
+    position: relative;
+    z-index: 5;
+  }
+
+  .slide-header .label {
+    display: inline-block;
+    background: linear-gradient(135deg, #b8860b, #ffd700);
+    color: #0D1117;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 6px 28px;
+    border-radius: 20px;
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+  }
+
+  .slide-header h1 {
+    font-size: 64px;
+    font-weight: 900;
+    line-height: 1.2;
+    background: linear-gradient(180deg, #fff 30%, #ffd700 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: none;
+    filter: drop-shadow(0 2px 8px rgba(255, 215, 0, 0.3));
+  }
+
+  .slide-header h1 .gold {
+    background: linear-gradient(180deg, #ffd700 0%, #b8860b 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .slide-header .subtitle {
+    font-size: 26px;
+    color: #aaa;
+    margin-top: 10px;
+    font-weight: 400;
+  }
+
+  /* ===== SLIDE 1: 実績者の壁 ===== */
+  .wall-full {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 8px;
+    padding: 10px 40px 20px;
+  }
+
+  .wall-full img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 215, 0, 0.15);
+  }
+
+  .wall-overlay {
+    position: relative;
+  }
+
+  .wall-overlay::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 150px;
+    background: linear-gradient(transparent, #0D1117);
+    pointer-events: none;
+  }
+
+  .more-text {
+    text-align: center;
+    font-size: 22px;
+    color: #ffd700;
+    padding: 0 0 40px;
+    position: relative;
+    z-index: 5;
+  }
+
+  /* ===== SLIDE 2: 100万以上 GRID ===== */
+  .achievement-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    padding: 10px 50px 50px;
+  }
+
+  .achievement-grid img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    border: 2px solid rgba(255, 215, 0, 0.2);
+    transition: transform 0.2s, border-color 0.2s;
+  }
+
+  .achievement-grid img:hover {
+    transform: scale(1.03);
+    border-color: #ffd700;
+  }
+
+  /* ===== SLIDE 3: 0→10 WALL ===== */
+  .wall-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px;
+    padding: 10px 40px 20px;
+  }
+
+  .wall-grid img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 215, 0, 0.12);
+  }
+
+  /* ===== DECORATIONS ===== */
+  .laurel {
+    font-size: 48px;
+    color: #ffd700;
+    vertical-align: middle;
+  }
+
+  .divider {
+    width: 120px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #ffd700, transparent);
+    margin: 10px auto;
+  }
+
+  .corner-deco {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border: 2px solid rgba(255, 215, 0, 0.2);
+    z-index: 2;
+  }
+  .corner-deco.tl { top: 20px; left: 20px; border-right: none; border-bottom: none; }
+  .corner-deco.tr { top: 20px; right: 20px; border-left: none; border-bottom: none; }
+  .corner-deco.bl { bottom: 20px; left: 20px; border-right: none; border-top: none; }
+  .corner-deco.br { bottom: 20px; right: 20px; border-left: none; border-top: none; }
+
+  @media print {
+    .slide { page-break-after: always; margin: 0; border: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ======================================================
+     SLIDE 1: 受講生がこれだけいる（全素材の壁）
+     ====================================================== -->
+<div class="slide" id="slide1">
+  <div class="corner-deco tl"></div>
+  <div class="corner-deco tr"></div>
+  <div class="corner-deco bl"></div>
+  <div class="corner-deco br"></div>
+
+  <div class="slide-header">
+    <div class="label">STUDENT RESULTS</div>
+    <h1><span class="laurel">🏆</span> <span class="gold">受講生実績</span>の一部をご紹介 <span class="laurel">🏆</span></h1>
+    <div class="divider"></div>
+    <div class="subtitle">AI×マネタイズを実践する受講生たちの成果</div>
+  </div>
+
+  <div class="wall-overlay">
+    <div class="wall-full">
+      <!-- 優先して使用 -->
+      <img src="https://files.catbox.moe/uyyp09.png" alt="">
+      <img src="https://files.catbox.moe/yvvg1e.png" alt="">
+      <img src="https://files.catbox.moe/zh24mb.png" alt="">
+      <img src="https://files.catbox.moe/8c4z4y.png" alt="">
+      <img src="https://files.catbox.moe/g7rmkq.png" alt="">
+      <img src="https://files.catbox.moe/73l33c.png" alt="">
+      <img src="https://files.catbox.moe/2ndylv.png" alt="">
+      <img src="https://files.catbox.moe/oei5kf.png" alt="">
+      <!-- 100万以上 -->
+      <img src="https://files.catbox.moe/ogh3t3.png" alt="">
+      <img src="https://files.catbox.moe/xiwkrk.png" alt="">
+      <img src="https://files.catbox.moe/utb7t9.png" alt="">
+      <img src="https://files.catbox.moe/g6oua9.png" alt="">
+      <!-- 優先して使用 続き -->
+      <img src="https://files.catbox.moe/bp5paj.png" alt="">
+      <img src="https://files.catbox.moe/1wo5g7.png" alt="">
+      <img src="https://files.catbox.moe/xiyjhn.png" alt="">
+      <img src="https://files.catbox.moe/hw57cq.png" alt="">
+      <!-- 0→10 -->
+      <img src="https://files.catbox.moe/wsf7ga.png" alt="">
+      <img src="https://files.catbox.moe/7k262q.png" alt="">
+      <img src="https://files.catbox.moe/drzls7.png" alt="">
+      <img src="https://files.catbox.moe/thucd4.png" alt="">
+      <!-- 100万以上 -->
+      <img src="https://files.catbox.moe/r4phzm.png" alt="">
+      <img src="https://files.catbox.moe/s7kxto.png" alt="">
+      <img src="https://files.catbox.moe/j5utk3.png" alt="">
+      <img src="https://files.catbox.moe/o6zkm1.png" alt="">
+      <!-- 優先して使用 続き -->
+      <img src="https://files.catbox.moe/0gb7a9.png" alt="">
+      <img src="https://files.catbox.moe/0puuic.png" alt="">
+      <img src="https://files.catbox.moe/60sv0f.png" alt="">
+      <img src="https://files.catbox.moe/atsc6c.png" alt="">
+      <!-- 0→10 -->
+      <img src="https://files.catbox.moe/jxryi1.png" alt="">
+      <img src="https://files.catbox.moe/0575gp.png" alt="">
+      <img src="https://files.catbox.moe/4qfwez.png" alt="">
+      <img src="https://files.catbox.moe/n0h0az.png" alt="">
+      <!-- 100万以上 -->
+      <img src="https://files.catbox.moe/69k913.png" alt="">
+      <img src="https://files.catbox.moe/sxi01b.png" alt="">
+      <img src="https://files.catbox.moe/jzjlyp.png" alt="">
+      <img src="https://files.catbox.moe/x19l4r.png" alt="">
+      <!-- 優先して使用 残り -->
+      <img src="https://files.catbox.moe/rjk7nh.png" alt="">
+      <img src="https://files.catbox.moe/lxlcde.png" alt="">
+      <img src="https://files.catbox.moe/g6coel.png" alt="">
+      <img src="https://files.catbox.moe/bpqgka.png" alt="">
+      <!-- 0→10 -->
+      <img src="https://files.catbox.moe/kj9623.png" alt="">
+      <img src="https://files.catbox.moe/yg67ql.png" alt="">
+      <img src="https://files.catbox.moe/el4slq.png" alt="">
+      <img src="https://files.catbox.moe/vcdygq.png" alt="">
+      <img src="https://files.catbox.moe/6dczu3.png" alt="">
+      <img src="https://files.catbox.moe/y6uyuj.png" alt="">
+      <img src="https://files.catbox.moe/sk2j5h.png" alt="">
+      <img src="https://files.catbox.moe/sj3d59.png" alt="">
+    </div>
+  </div>
+  <div class="more-text">…and more</div>
+</div>
+
+<!-- ======================================================
+     SLIDE 2: 100万円以上の実績者
+     ====================================================== -->
+<div class="slide" id="slide2">
+  <div class="corner-deco tl"></div>
+  <div class="corner-deco tr"></div>
+  <div class="corner-deco bl"></div>
+  <div class="corner-deco br"></div>
+
+  <div class="slide-header">
+    <div class="label">TOP ACHIEVERS</div>
+    <h1>月<span class="gold">100万円</span>超えの実績者が<span class="gold">続出</span></h1>
+    <div class="divider"></div>
+    <div class="subtitle">AI×クライアントワーク / AI×物販 / AI×コンテンツ / AI×漫画 …多ジャンルで成果</div>
+  </div>
+
+  <div class="achievement-grid">
+    <img src="https://files.catbox.moe/ogh3t3.png" alt="受講生実績">
+    <img src="https://files.catbox.moe/xiwkrk.png" alt="受講生実績">
+    <img src="https://files.catbox.moe/utb7t9.png" alt="受講生実績">
+    <img src="https://files.catbox.moe/g6oua9.png" alt="受講生実績">
+    <img src="https://files.catbox.moe/r4phzm.png" alt="受講生実績">
+    <img src="https://files.catbox.moe/s7kxto.png" alt="受講生実績">
+    <img src="https://files.catbox.moe/j5utk3.png" alt="受講生実績">
+    <img src="https://files.catbox.moe/o6zkm1.png" alt="受講生実績">
+    <img src="https://files.catbox.moe/69k913.png" alt="受講生実績">
+    <img src="https://files.catbox.moe/sxi01b.png" alt="受講生実績">
+    <img src="https://files.catbox.moe/jzjlyp.png" alt="受講生実績">
+    <img src="https://files.catbox.moe/x19l4r.png" alt="受講生実績">
+    <img src="https://files.catbox.moe/owcdzu.png" alt="受講生実績">
+    <img src="https://files.catbox.moe/y2khvp.png" alt="受講生実績">
+    <img src="https://files.catbox.moe/dxn278.png" alt="受講生実績">
+    <img src="https://files.catbox.moe/lvqfob.png" alt="受講生実績">
+    <img src="https://files.catbox.moe/kdfe4j.png" alt="受講生実績">
+    <img src="https://files.catbox.moe/ba82u3.png" alt="受講生実績">
+    <img src="https://files.catbox.moe/swy6w8.png" alt="受講生実績">
+    <img src="https://files.catbox.moe/te2cjh.png" alt="受講生実績">
+    <img src="https://files.catbox.moe/bqova3.png" alt="受講生実績">
+    <img src="https://files.catbox.moe/79kady.png" alt="受講生実績">
+    <img src="https://files.catbox.moe/j9vgqq.png" alt="受講生実績">
+    <img src="https://files.catbox.moe/amt2ce.png" alt="受講生実績">
+    <img src="https://files.catbox.moe/grf9w0.png" alt="受講生実績">
+    <img src="https://files.catbox.moe/kfz46p.png" alt="受講生実績">
+    <img src="https://files.catbox.moe/mn7u6y.png" alt="受講生実績">
+    <img src="https://files.catbox.moe/o9o7qj.png" alt="受講生実績">
+    <img src="https://files.catbox.moe/mago7g.png" alt="受講生実績">
+    <img src="https://files.catbox.moe/u03uyb.png" alt="受講生実績">
+    <img src="https://files.catbox.moe/vihpwx.png" alt="受講生実績">
+    <img src="https://files.catbox.moe/zsmxry.png" alt="受講生実績">
+    <img src="https://files.catbox.moe/47y4kw.png" alt="受講生実績">
+    <img src="https://files.catbox.moe/5qmbcn.png" alt="受講生実績">
+    <img src="https://files.catbox.moe/o9h1le.png" alt="受講生実績">
+    <img src="https://files.catbox.moe/odcfny.png" alt="受講生実績">
+    <img src="https://files.catbox.moe/30daqe.png" alt="受講生実績">
+    <img src="https://files.catbox.moe/7vjj07.png" alt="受講生実績">
+    <img src="https://files.catbox.moe/0a5ir0.png" alt="受講生実績">
+  </div>
+</div>
+
+<!-- ======================================================
+     SLIDE 3: 0→10万円突破の壁
+     ====================================================== -->
+<div class="slide" id="slide3">
+  <div class="corner-deco tl"></div>
+  <div class="corner-deco tr"></div>
+  <div class="corner-deco bl"></div>
+  <div class="corner-deco br"></div>
+
+  <div class="slide-header">
+    <div class="label">BREAKTHROUGH</div>
+    <h1><span class="gold">0→10万円</span>を突破した受講生たち</h1>
+    <div class="divider"></div>
+    <div class="subtitle">「AIで初めて稼げた」——最初の一歩を踏み出した受講生の記録</div>
+  </div>
+
+  <div class="wall-overlay">
+    <div class="wall-grid">
+      <img src="https://files.catbox.moe/wsf7ga.png" alt="">
+      <img src="https://files.catbox.moe/7k262q.png" alt="">
+      <img src="https://files.catbox.moe/drzls7.png" alt="">
+      <img src="https://files.catbox.moe/gl20qz.png" alt="">
+      <img src="https://files.catbox.moe/ywi22y.png" alt="">
+      <img src="https://files.catbox.moe/a1ni6g.png" alt="">
+      <img src="https://files.catbox.moe/bgz7g6.png" alt="">
+      <img src="https://files.catbox.moe/v9y976.png" alt="">
+      <img src="https://files.catbox.moe/vdr0hm.png" alt="">
+      <img src="https://files.catbox.moe/aow8zq.png" alt="">
+      <img src="https://files.catbox.moe/wtql4s.png" alt="">
+      <img src="https://files.catbox.moe/qegbvt.png" alt="">
+      <img src="https://files.catbox.moe/itrlqg.png" alt="">
+      <img src="https://files.catbox.moe/cctt1t.png" alt="">
+      <img src="https://files.catbox.moe/qlli35.png" alt="">
+      <img src="https://files.catbox.moe/l45fsl.png" alt="">
+      <img src="https://files.catbox.moe/0575gp.png" alt="">
+      <img src="https://files.catbox.moe/n0h0az.png" alt="">
+      <img src="https://files.catbox.moe/f9iovu.png" alt="">
+      <img src="https://files.catbox.moe/kj9623.png" alt="">
+      <img src="https://files.catbox.moe/thucd4.png" alt="">
+      <img src="https://files.catbox.moe/s9maqu.png" alt="">
+      <img src="https://files.catbox.moe/nfjfc7.png" alt="">
+      <img src="https://files.catbox.moe/yg67ql.png" alt="">
+      <img src="https://files.catbox.moe/vcdygq.png" alt="">
+      <img src="https://files.catbox.moe/xewfpi.png" alt="">
+      <img src="https://files.catbox.moe/xk37mz.png" alt="">
+      <img src="https://files.catbox.moe/xj8j77.png" alt="">
+      <img src="https://files.catbox.moe/z5wj02.png" alt="">
+      <img src="https://files.catbox.moe/jxryi1.png" alt="">
+      <img src="https://files.catbox.moe/apomr4.png" alt="">
+      <img src="https://files.catbox.moe/nkb60p.png" alt="">
+      <img src="https://files.catbox.moe/sb3u0m.png" alt="">
+      <img src="https://files.catbox.moe/78apv1.png" alt="">
+      <img src="https://files.catbox.moe/4qfwez.png" alt="">
+      <img src="https://files.catbox.moe/sj3d59.png" alt="">
+      <img src="https://files.catbox.moe/53y6y0.png" alt="">
+      <img src="https://files.catbox.moe/mhx118.png" alt="">
+      <img src="https://files.catbox.moe/udrvfu.png" alt="">
+      <img src="https://files.catbox.moe/slfloh.png" alt="">
+      <img src="https://files.catbox.moe/0ejjt3.png" alt="">
+      <img src="https://files.catbox.moe/el4slq.png" alt="">
+      <img src="https://files.catbox.moe/9ff3hu.png" alt="">
+      <img src="https://files.catbox.moe/5hjrb3.png" alt="">
+      <img src="https://files.catbox.moe/w4j86v.png" alt="">
+      <img src="https://files.catbox.moe/zt8gx7.png" alt="">
+      <img src="https://files.catbox.moe/hhv7un.png" alt="">
+      <img src="https://files.catbox.moe/le5ohz.png" alt="">
+      <img src="https://files.catbox.moe/0p7m3i.png" alt="">
+      <img src="https://files.catbox.moe/i1g7y2.png" alt="">
+      <img src="https://files.catbox.moe/8da05t.png" alt="">
+      <img src="https://files.catbox.moe/er8psw.png" alt="">
+      <img src="https://files.catbox.moe/4pej2t.png" alt="">
+      <img src="https://files.catbox.moe/bl7b6i.png" alt="">
+      <img src="https://files.catbox.moe/mcfy99.png" alt="">
+      <img src="https://files.catbox.moe/d1k4go.png" alt="">
+      <img src="https://files.catbox.moe/33z4fy.png" alt="">
+      <img src="https://files.catbox.moe/vvmlt8.png" alt="">
+      <img src="https://files.catbox.moe/95dsyg.png" alt="">
+    </div>
+  </div>
+  <div class="more-text">…and more</div>
+</div>
+
+</body>
+</html>
